@@ -383,6 +383,10 @@ public class BTree<T extends Comparable<T>> {
     private Node<T> getGreatestNode(Node<T> nodeToGet) {
         Node<T> node = nodeToGet;
         while (node.numberOfChildren() > 0) {
+            Node<T> child = node.getChild(node.numberOfChildren() - 1);
+            if (child.numberOfKeys() == minKeySize){
+                combined(node);
+            }
             node = node.getChild(node.numberOfChildren() - 1);
         }
         return node;
