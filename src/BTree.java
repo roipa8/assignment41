@@ -248,7 +248,7 @@ public class BTree<T extends Comparable<T>> {
      */
     public T remove(T value) {
         T removed = null;
-        Node<T> node = this.getNode(value);
+        Node<T> node = this.search(this.root, value);
         removed = remove(value, node);
         return removed;
     }
@@ -399,7 +399,7 @@ public class BTree<T extends Comparable<T>> {
         Node<T> node = nodeToGet;
         while (node.numberOfChildren() > 0) {
             Node<T> child = node.getChild(node.numberOfChildren() - 1);
-            if (child.numberOfKeys() == minKeySize){
+            if (child.numberOfKeys() == minKeySize) {
                 combined(node);
             }
             node = node.getChild(node.numberOfChildren() - 1);
