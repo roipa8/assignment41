@@ -252,7 +252,22 @@ public class BTree<T extends Comparable<T>> {
         removed = remove(value, node);
         return removed;
     }
-
+    private Node<T> search(Node<T> xNode, T value) {
+        int i = 0;
+        while (i < xNode.numberOfKeys() & value.compareTo(xNode.getKey(i))>0) {
+            i++;
+        }
+        if (i < xNode.numberOfKeys() & value == xNode.getKey(i)) {
+            return (xNode);
+        } else if (xNode.numberOfChildren() == 0) {
+            return null;
+        } else {
+            if (xNode.getChild(i).numberOfKeys() < minKeySize + 1) {
+                combined(xNode.getChild(i));
+            }
+            search(xNode.getChild(i), value);
+        }
+    }
     /**
      * Remove the value from the Node and check invariants
      *
